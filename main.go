@@ -3,34 +3,20 @@ package main
 import (
 	"fmt"
 	"math/rand"
+	"oodai/window"
 	"sync"
 	"time"
 )
 
-type TickData struct {
-	Symbol    int
-	TimeStamp int64
-	Price     float64
-}
-
-type TumblingWindow struct {
-	Duration int64
-	Uom      int64
-}
-
-type SlidingWindow struct {
-	Duration int64
-	Interval int64
-}
-
 func main() {
-	intStrm := make(chan TickData, 2)
+
+	intStrm := make(chan window.TickData, 2)
 	symbols := []int{234, 789, 345}
 	wg := sync.WaitGroup{}
 
 	wg.Add(2)
 
-	aggFn := func(batch []TickData) {
+	aggFn := func(batch []window.TickData) {
 		fmt.Printf("received tick data batch %v \n", batch)
 	}
 
@@ -38,7 +24,7 @@ func main() {
 	go func() {
 		defer wg.Done()
 		for true {
-			td := TickData{
+			td := window.TickData{
 				Symbol:    symbols[0],
 				TimeStamp: time.Now().UnixNano() / 1000000,
 				Price:     (float64(rand.Intn(100)) / 100.0) * 100.0}
@@ -48,8 +34,8 @@ func main() {
 		close(intStrm)
 	}()
 
-	go OnTumblingWindow(&wg, intStrm, TumblingWindow{Duration: 1, Uom: (1000 * 60)}, aggFn)
-	// 	go OnSlidingWindow(&wg, intStrm, SlidingWindow{Duration: 3 * 1000, Interval: 1 * 1000}, aggFn)
+	go window.OnTumblingWindow(&wg, intStrm, window.TumblingWindow{Duration: 1, Uom: (1000 * 60)}, aggFn)
+	go window.OnSlidingWindow(&wg, intStrm, window.SlidingWindow{Duration: 3 * 1000, Interval: 1 * 1000}, aggFn)
 
 	wg.Wait()
 }
