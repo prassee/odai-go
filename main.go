@@ -30,6 +30,10 @@ func main() {
 
 	wg.Add(2)
 
+	aggFn := func(batch []TickData) {
+		fmt.Printf("received tick data batch %v \n", batch)
+	}
+
 	// start the stream by sourcing
 	go func() {
 		defer wg.Done()
@@ -39,31 +43,13 @@ func main() {
 				TimeStamp: time.Now().UnixNano() / 1000000,
 				Price:     (float64(rand.Intn(100)) / 100.0) * 100.0}
 			intStrm <- td
-			time.Sleep(time.Duration(500+rand.Intn(500)) * time.Millisecond)
+			time.Sleep(time.Duration(200+rand.Intn(300)) * time.Millisecond)
 		}
 		close(intStrm)
 	}()
 
-	go func(window TumblingWindow, fn func(batch []TickData)) {
-		defer wg.Done()
-		data := []TickData{}
-		for i := range intStrm {
-			den := (window.Duration * window.Uom)
-			data = append(data, i)
-			if i.TimeStamp%den < 1000 {
-				fn(data)
-				data = []TickData{}
-			}
-		}
-	}(TumblingWindow{Duration: 1, Uom: (1000 * 60)}, func(batch []TickData) {
-		fmt.Printf("received tick data batch %v \n", batch)
-	})
-
-	go func(window SlidingWindow) {
-		for i := range intStrm {
-			println(i)
-		}
-	}(SlidingWindow{Duration: 3 * 1000, Interval: 1 * 1000})
+	go OnTumblingWindow(&wg, intStrm, TumblingWindow{Duration: 1, Uom: (1000 * 60)}, aggFn)
+	// 	go OnSlidingWindow(&wg, intStrm, SlidingWindow{Duration: 3 * 1000, Interval: 1 * 1000}, aggFn)
 
 	wg.Wait()
 }
