@@ -4,6 +4,9 @@ import (
 	"sync"
 )
 
+/*
+OnTumblingWindow -
+*/
 func OnTumblingWindow(wg *sync.WaitGroup,
 	intStrm chan TickData,
 	window TumblingWindow,
@@ -20,6 +23,9 @@ func OnTumblingWindow(wg *sync.WaitGroup,
 	}
 }
 
+/*
+OnSlidingWindow -
+*/
 func OnSlidingWindow(wg *sync.WaitGroup,
 	intStrm chan TickData,
 	window SlidingWindow,
