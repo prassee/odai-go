@@ -1,6 +1,6 @@
 ## odai
 
-*(to be pronounced as "o" - "dai" )*
+*(to be pronounced as "o" + "dai" )*
 
 A simple and naive stream processing library written in Go. 
 
