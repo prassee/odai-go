@@ -5,7 +5,8 @@ import (
 )
 
 /*
-OnTumblingWindow -
+OnTumblingWindow - takes a aggregating function to which executes
+based on the defined params in window object.
 */
 func OnTumblingWindow(wg *sync.WaitGroup,
 	intStrm chan TickData,
@@ -24,7 +25,8 @@ func OnTumblingWindow(wg *sync.WaitGroup,
 }
 
 /*
-OnSlidingWindow -
+OnSlidingWindow -  takes a aggregating function to which executes
+based on the defined params in window object
 */
 func OnSlidingWindow(wg *sync.WaitGroup,
 	intStrm chan TickData,

@@ -1,7 +1,7 @@
 package source
 
 import (
-	"oodai/window"
+	"odai/window"
 	"sync"
 )
 

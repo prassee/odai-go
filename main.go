@@ -3,8 +3,8 @@ package main
 import (
 	"fmt"
 	"math/rand"
-	"oodai/source"
-	"oodai/window"
+	"odai/source"
+	"odai/window"
 	"sync"
 	"time"
 )
