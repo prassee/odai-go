@@ -2,9 +2,9 @@ package main
 
 import (
 	"fmt"
+	"github.com/prassee/odai/source"
+	"github.com/prassee/odai/window"
 	"math/rand"
-	"odai/source"
-	"odai/window"
 	"sync"
 	"time"
 )
@@ -32,7 +32,7 @@ func main() {
 	})
 
 	go window.OnTumblingWindow(&wg, intStrm, window.TumblingWindow{Duration: 1, Uom: (1000 * 60)}, aggFn)
-	go window.OnSlidingWindow(&wg, intStrm, window.SlidingWindow{Duration: 3 * 1000, Interval: 1 * 1000}, aggFn)
+	// go window.OnSlidingWindow(&wg, intStrm, window.SlidingWindow{Duration: 3 * 1000, Interval: 1 * 1000}, aggFn)
 
 	wg.Wait()
 }

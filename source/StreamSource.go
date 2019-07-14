@@ -1,7 +1,7 @@
 package source
 
 import (
-	"odai/window"
+	"github.com/prassee/odai/window"
 	"sync"
 )
 

@@ -1,7 +1,7 @@
 package window
 
 /*
-TumblingWindow - 
+TumblingWindow -
 */
 type TumblingWindow struct {
 	Duration int64
@@ -9,7 +9,7 @@ type TumblingWindow struct {
 }
 
 /*
-SlidingWindow - 
+SlidingWindow -
 */
 type SlidingWindow struct {
 	Duration int64
@@ -17,7 +17,7 @@ type SlidingWindow struct {
 }
 
 /*
-TickData - 
+TickData -
 */
 type TickData struct {
 	Symbol    int
