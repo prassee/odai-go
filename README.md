@@ -1,5 +1,7 @@
 ## odai
 
+[![Build Status](https://travis-ci.org/prassee/odai.svg?branch=master)](https://travis-ci.org/prassee/odai)
+
 *(to be pronounced as "o" + "dai" )*
 
 A simple and naive stream processing library written in Go. 
